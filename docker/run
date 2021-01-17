@@ -1,0 +1,22 @@
+#!/bin/bash
+
+DATASET_DIR=/mnt/inkers1TB/INKERS/Satyajit/coco-datasets
+CONFIGS_DIR=/mnt/inkers1TB/INKERS/Satyajit/DSHNet/configs
+NOTEBOOKS_DIR=/mnt/inkers1TB/INKERS/Satyajit/DSHNet/notebooks
+CHECKPOINTS_DIR=/mnt/inkers1TB/INKERS/Satyajit/DSHNet/checkpoints
+# pytorch pretrained models
+TORCH_HOME=/mnt/inkers1TB/INKERS/Satyajit/DSHNet/pytorch_home
+# DSHNet pretrained models
+MODELS_DIR=/mnt/inkers1TB/INKERS/Satyajit/DSHNet/models
+
+docker run -it --rm -v ${DATASET_DIR}:/opt/data \
+		    -v ${CONFIGS_DIR}:/opt/configs \
+		    -v ${NOTEBOOKS_DIR}:/opt/notebooks \
+		    -v ${TORCH_HOME}:/opt/torch_home \
+		    -v ${MODELS_DIR}:/opt/models \
+		    -v ${CHECKPOINTS_DIR}:/opt/checkpoints
+		    --env TORCH_HOME=/opt/torch_home \
+		    -p 8888:8888 \
+		    --gpus all \
+		    --ipc host \
+		    dshnet:latest
